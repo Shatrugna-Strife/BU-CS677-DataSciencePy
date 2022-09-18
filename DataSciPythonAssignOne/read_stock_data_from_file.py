@@ -110,4 +110,81 @@ if buy!=0:
     buy = 0
     stock_quantity = 0
 
-print(profit,loss)
+print(money)
+
+profit = [[profit[i],i] for i in range(len(profit))]
+loss = [[loss[i],i] for i in range(len(loss))]
+
+profit.sort(key=lambda x : x[0], reverse=True)
+loss.sort(key=lambda x : x[0])
+
+best_ten_days = [profit[i][0] for i in range(10)]
+
+print(best_ten_days)
+
+best_ten_days = [profit[i][1] for i in range(10)]
+
+
+initial_money = 100
+tmp_money = 0
+money = 100
+tmp = 0
+buy = 0
+stock_quantity = 0
+for i in range(len(closingPriceList)-1):
+    if buy!=0 and best_ten_days.__contains__(i):
+        money = stock_quantity*closingPriceList[i][0]
+        buy = 0
+        stock_quantity = 0
+        continue
+    if closingPriceList[i+1][1]>=0 and buy ==0:
+        buy = closingPriceList[i][0]
+        stock_quantity = money/buy
+        tmp_money = money
+        continue
+    elif closingPriceList[i+1][1]<0 and buy!=0:
+        money = stock_quantity*closingPriceList[i][0]
+        buy = 0
+        stock_quantity = 0
+        continue
+
+if buy!=0:
+    money = stock_quantity*closingPriceList[i][0]
+    buy = 0
+    stock_quantity = 0
+
+
+print(money)
+
+
+worst_ten_days = [loss[i][1] for i in range(10)]
+
+initial_money = 100
+tmp_money = 0
+money = 100
+tmp = 0
+buy = 0
+stock_quantity = 0
+for i in range(len(closingPriceList)-1):
+    if buy==0 and worst_ten_days.__contains__(i):
+        buy = closingPriceList[i][0]
+        stock_quantity = money/buy
+        tmp_money = money
+        continue
+    if closingPriceList[i+1][1]>=0 and buy ==0:
+        buy = closingPriceList[i][0]
+        stock_quantity = money/buy
+        tmp_money = money
+        continue
+    elif closingPriceList[i+1][1]<0 and buy!=0:
+        money = stock_quantity*closingPriceList[i][0]
+        buy = 0
+        stock_quantity = 0
+        continue
+
+if buy!=0:
+    money = stock_quantity*closingPriceList[i][0]
+    buy = 0
+    stock_quantity = 0
+
+print(money)
