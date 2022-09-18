@@ -188,3 +188,41 @@ if buy!=0:
     stock_quantity = 0
 
 print(money)
+
+worst_ten_days = worst_ten_days[:6]
+best_ten_days = best_ten_days[:6]
+
+initial_money = 100
+tmp_money = 0
+money = 100
+tmp = 0
+buy = 0
+stock_quantity = 0
+for i in range(len(closingPriceList)-1):
+    if buy==0 and worst_ten_days.__contains__(i):
+        buy = closingPriceList[i][0]
+        stock_quantity = money/buy
+        tmp_money = money
+        continue
+    if buy!=0 and best_ten_days.__contains__(i):
+        money = stock_quantity*closingPriceList[i][0]
+        buy = 0
+        stock_quantity = 0
+        continue
+    if closingPriceList[i+1][1]>=0 and buy ==0:
+        buy = closingPriceList[i][0]
+        stock_quantity = money/buy
+        tmp_money = money
+        continue
+    elif closingPriceList[i+1][1]<0 and buy!=0:
+        money = stock_quantity*closingPriceList[i][0]
+        buy = 0
+        stock_quantity = 0
+        continue
+
+if buy!=0:
+    money = stock_quantity*closingPriceList[i][0]
+    buy = 0
+    stock_quantity = 0
+
+print(money)
