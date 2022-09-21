@@ -48,7 +48,7 @@ def get_stock(ticker, start_date, end_date, s_window, l_window):
 
 here = os.path.abspath(__file__)
 input_dir = os.path.abspath(os.path.join(here, os.pardir))
-tickers = ['SPY']
+tickers = ['SPY',"KO"]
 for ticker in tickers:
     try:
         output_file = os.path.join(input_dir, ticker + '.csv')
