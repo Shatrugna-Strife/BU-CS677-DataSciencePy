@@ -94,13 +94,13 @@ def generate_aggregrate_table(ticker_data : list[list[str]], ticker:str) -> None
         y["variationneg"] = len(y["neg"]) and (sum(i*i for i in y["neg"])/ len(y["neg"])) or 0 - y["meanneg"] * y["meanneg"]
         y["variation"]  = (len(y["pos"])+len(y["neg"])) and (sum(i*i for i in y["neg"]+y["pos"])/(len(y["pos"])+len(y["neg"]))) or 0 - y["mean"] * y["mean"]
 
-        print("Ticker:",ticker,"\n")
-        # for x in dicAggregate.keys():
-        keys = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
-        tmp = pd.DataFrame({"µ(R)":[dicAggregate[i]["mean"] for i in keys],"σ(R)":[dicAggregate[i]["variation"] for i in keys],"|R−|":[len(dicAggregate[i]["neg"]) for i in keys], "µ(R−)":[dicAggregate[i]["meanneg"] for i in keys], "σ(R−)":[dicAggregate[i]["variationneg"] for i in keys], "|R+|":[len(dicAggregate[i]["pos"]) for i in keys], "µ(R+)":[dicAggregate[i]["meanpos"] for i in keys], "σ(R+)":[dicAggregate[i]["variationpos"] for i in keys]})
-        tmp.index=keys
-        # print("\nYear:", x)
-        print(tmp)
+    print("\nTicker:",ticker,"Aggregate Result","\n")
+    # for x in dicAggregate.keys():
+    keys = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+    tmp = pd.DataFrame({"µ(R)":[dicAggregate[i]["mean"] for i in keys],"σ(R)":[dicAggregate[i]["variation"] for i in keys],"|R−|":[len(dicAggregate[i]["neg"]) for i in keys], "µ(R−)":[dicAggregate[i]["meanneg"] for i in keys], "σ(R−)":[dicAggregate[i]["variationneg"] for i in keys], "|R+|":[len(dicAggregate[i]["pos"]) for i in keys], "µ(R+)":[dicAggregate[i]["meanpos"] for i in keys], "σ(R+)":[dicAggregate[i]["variationpos"] for i in keys]})
+    tmp.index=keys
+    # print("\nYear:", x)
+    print(tmp)
 
 
 def oracle_profit_generate(ticker_data : list[list[str]])->list[any]:
@@ -282,7 +282,7 @@ def buy_and_hold(ticker_data : list[list[str]])->float:
 
 def main():
     generate_table_per_year(ticker_file_read("SPY"), "SPY")
-    generate_table_per_year(ticker_file_read("KO"), "KO")
+    # generate_table_per_year(ticker_file_read("KO"), "KO")
     generate_aggregrate_table(ticker_file_read("SPY"), "SPY")
     generate_aggregrate_table(ticker_file_read("KO"), "KO")
     [moneyProfitSPY,profitSPY,lossSPY] = oracle_profit_generate(ticker_file_read("SPY"))
